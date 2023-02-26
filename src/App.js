@@ -14,19 +14,19 @@ const Route = ({ currentPage, goToPage }) => {
 };
 
 const totalScoreDefault = {
-   skill: 0,
-   strength: 0,
-   care: 0,
-   character: 0
+   relationship: 0,
+   staff: 0,
+   presence: 0,
+   protagonism: 0
 };
 
 function App() {
    const [currentPage, setCurrentPage] = useState(0);
-   const [totalScore, setTotalScore] = useState(totalScoreDefault);
+   const [totalScore, setTotalScore] = useState({...totalScoreDefault});
 
    const getTotalScoreStored = () => {
       const totalScoreStored = JSON.parse(localStorage.getItem('totalScore'));
-      if (totalScoreStored === null) return totalScoreDefault;
+      if (totalScoreStored === null) return {...totalScoreDefault};
       return totalScoreStored;
    };
 
@@ -38,8 +38,10 @@ function App() {
       if (!score) return;
       const totalScoreStored = getTotalScoreStored();
       score.forEach(value => {
+         console.log(`${value.id} ${value.points}`)
          totalScoreStored[value.id] = totalScoreStored[value.id] + value.points;
       });
+      console.log('Resume', totalScoreStored)
       setTotalScoreStored(totalScoreStored);
       setTotalScore(totalScoreStored);
    };
@@ -59,6 +61,7 @@ function App() {
       localStorage.removeItem('pageIndex');
       localStorage.removeItem('totalScore');
       setCurrentPage(0);
+      setTotalScore({...totalScoreDefault})
    };
 
    useEffect(() => {

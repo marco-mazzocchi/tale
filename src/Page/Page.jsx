@@ -26,7 +26,7 @@ function Page({ id = 'intro', text = '', title = '', choices = [], goToPage }) {
    });
    return (
       <>
-         <h1>{title}</h1>
+          {title && <h1>{title}</h1>}
          <div
             className="mb-4"
             dangerouslySetInnerHTML={{
